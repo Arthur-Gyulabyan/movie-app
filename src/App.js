@@ -1,8 +1,8 @@
 import './App.less';
-import Home from './components/Home/Home';
+import Main from './components/Main/Main';
 
 function App() {
-  return <Home />;
+  return <Main />;
 }
 
 export default App;
