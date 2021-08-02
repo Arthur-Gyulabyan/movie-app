@@ -16,7 +16,7 @@ export default function NavBar() {
             </Text>
           </Col>
           <Col>
-            <Button type="success" size="small">
+            <Button ghost type="primary" size="large">
               Favorites
             </Button>
           </Col>
@@ -24,11 +24,13 @@ export default function NavBar() {
       </Col>
       <Col span={12}>
         <Row justify="end" align="middle" gutter={32}>
-          <Col span={16}>
-            <Search placeholder="input search text" enterButton />
+          <Col span={12}>
+            <Search placeholder="input search text" />
           </Col>
           <Col>
-            <Button type="primary">Log In</Button>
+            <Button ghost type="primary" size="large">
+              Log In
+            </Button>
           </Col>
         </Row>
       </Col>
