@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './NavBar.less';
 import { Button, Typography, Input, Row, Col } from 'antd';
 
 const { Text } = Typography;
 const { Search } = Input;
 
-export default function NavBar() {
+export default function NavBar({ search, handleSearch }) {
   return (
     <Row justify="space-between" align="middle" className="nav-bar">
       <Col span={12}>
@@ -25,7 +26,11 @@ export default function NavBar() {
       <Col span={12}>
         <Row justify="end" align="middle" gutter={32}>
           <Col span={12}>
-            <Search placeholder="input search text" />
+            <Search
+              placeholder="input search text"
+              value={search}
+              onChange={handleSearch}
+            />
           </Col>
           <Col>
             <Button ghost type="primary" size="large">
@@ -37,3 +42,8 @@ export default function NavBar() {
     </Row>
   );
 }
+
+NavBar.propTypes = {
+  search: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+};
