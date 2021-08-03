@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Card } from 'antd';
+import './MovieCard.less';
 import noImage from '../../assets/images/no-image.jpg';
 
 const { Meta } = Card;
@@ -8,7 +9,6 @@ export default function MovieCard({ url, title, releaseDate }) {
   return (
     <Card
       hoverable
-      style={{ width: 280 }}
       cover={
         <img
           alt="example"
