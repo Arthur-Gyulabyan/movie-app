@@ -1,17 +1,36 @@
 import React, { PureComponent } from 'react';
 import { Form, Field, ErrorMessage, withFormik } from 'formik';
 import * as yup from 'yup';
+import './LogIn.less';
 
 class Login extends PureComponent {
   render() {
     return (
-      <Form style={{ marginTop: '200px' }}>
-        <Field type="text" name="email" placeholder="email" />
-        <ErrorMessage name="email" />
-        <Field type="text" name="password" placeholder="password" />
-        <ErrorMessage name="password" />
-        <button type="submit"> Submit</button>
-      </Form>
+      <div className="form-wrapper">
+        <Form className="form">
+          <h2 className="form-header">Log In</h2>
+          <div className="input-field-wrapper">
+            <Field
+              type="text"
+              name="username"
+              placeholder="username"
+              className="form-input"
+            />
+            <ErrorMessage name="email" />
+          </div>
+
+          <div className="input-field-wrapper">
+            <Field
+              type="text"
+              name="password"
+              placeholder="password"
+              className="form-input"
+            />
+            <ErrorMessage name="password" />
+          </div>
+          <button type="submit"> Submit</button>
+        </Form>
+      </div>
     );
   }
 }
