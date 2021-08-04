@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './NavBar.less';
 import { Button, Typography, Input, Row, Col } from 'antd';
 
@@ -33,9 +34,11 @@ export default function NavBar({ search, handleSearch }) {
             />
           </Col>
           <Col>
-            <Button ghost type="primary" size="large">
-              Log In
-            </Button>
+            <Link to="/login">
+              <Button ghost type="primary" size="large">
+                Log In
+              </Button>
+            </Link>
           </Col>
         </Row>
       </Col>
