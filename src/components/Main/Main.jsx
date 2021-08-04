@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import Movies from '../Movies/Movies';
+import LogIn from '../LogIn/LogIn';
 import API from '../../helpers/axios';
 
 export default function Main() {
@@ -28,7 +30,11 @@ export default function Main() {
   }, [requestPopular]);
 
   useEffect(() => {
-    search ? requestBySearch() : requestPopular();
+    const delayId = setTimeout(() => {
+      search ? requestBySearch() : requestPopular();
+    }, 300);
+
+    return () => clearTimeout(delayId);
   }, [requestBySearch, requestPopular, search]);
 
   const handleSearch = (e) => {
@@ -37,8 +43,17 @@ export default function Main() {
 
   return (
     <>
-      <NavBar search={search} handleSearch={handleSearch} />
-      <Movies movies={data} />
+      <Router>
+        <NavBar search={search} handleSearch={handleSearch} />
+        <Switch>
+          <Route exact path="/">
+            <Movies movies={data} />
+          </Route>
+          <Route path="/login">
+            <LogIn />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }
