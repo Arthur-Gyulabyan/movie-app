@@ -1,11 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from 'react-router-dom';
+import ProvideAuth from '../ProvideAuth/ProvideAuth';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import NavBar from '../NavBar/NavBar';
 import Movies from '../Movies/Movies';
 import LogIn from '../LogIn/LogIn';
 import API from '../../helpers/axios';
 
 export default function Main() {
+  const history = useHistory();
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
 
@@ -43,17 +51,19 @@ export default function Main() {
 
   return (
     <>
-      <Router>
-        <NavBar search={search} handleSearch={handleSearch} />
-        <Switch>
-          <Route exact path="/">
-            <Movies movies={data} />
-          </Route>
-          <Route path="/login">
-            <LogIn />
-          </Route>
-        </Switch>
-      </Router>
+      <ProvideAuth>
+        <Router>
+          <NavBar search={search} handleSearch={handleSearch} />
+          <Switch>
+            <ProtectedRoute exact path="/">
+              <Movies movies={data} />
+            </ProtectedRoute>
+            <Route path="/login">
+              <LogIn history={history} />
+            </Route>
+          </Switch>
+        </Router>
+      </ProvideAuth>
     </>
   );
 }
