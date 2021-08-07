@@ -9,24 +9,29 @@ import API from '../../helpers/axios';
 import { POPULAR_URL, SEARCH_URL } from '../../constants/constants';
 
 export default function Main() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
+  const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
 
   const requestPopular = useCallback(() => {
-    API.get(`${POPULAR_URL}`).then((response) => {
-      setData(response.data.results);
+    API.get(`${POPULAR_URL}&page=${page}`).then((response) => {
+      setData(response.data);
     });
-  }, []);
+  }, [page]);
 
   const requestBySearch = useCallback(() => {
     API.get(`${SEARCH_URL}&query=${search}`).then((response) => {
-      setData(response.data.results);
+      setData(response.data);
     });
   }, [search]);
 
+  const changePage = (pageNum) => {
+    setPage(pageNum);
+  };
+
   useEffect(() => {
     requestPopular();
-  }, [requestPopular]);
+  }, [page, requestPopular]);
 
   useEffect(() => {
     const delayId = setTimeout(() => {
@@ -47,7 +52,7 @@ export default function Main() {
           <NavBar search={search} handleSearch={handleSearch} />
           <Switch>
             <ProtectedRoute exact path="/">
-              <Movies movies={data} />
+              <Movies data={data} changeHandler={changePage} />
             </ProtectedRoute>
             <Route path="/login">
               <LogIn />
