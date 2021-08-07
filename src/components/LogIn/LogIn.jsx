@@ -39,12 +39,22 @@ const LogIn = () => {
       <div className="form-wrapper">
         <Form className="form">
           <h2 className="form-header">Login</h2>
-          <Field name="username" type="text" className="form-input" />
+          <Field
+            name="username"
+            type="text"
+            className="form-input"
+            autoComplete="true"
+          />
           <span className="error-message">
             <ErrorMessage name="username" />
           </span>
 
-          <Field name="password" type="password" className="form-input" />
+          <Field
+            name="password"
+            type="password"
+            className="form-input"
+            autoComplete="true"
+          />
           <span className="error-message">
             <ErrorMessage name="password" />
           </span>
