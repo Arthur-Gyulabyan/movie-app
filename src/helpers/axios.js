@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { BASE_URL, READ_ACCESS_TOKEN } from '../constants/constants';
 
 const API = axios.create({
-  baseURL: 'https://api.themoviedb.org/3',
+  baseURL: BASE_URL,
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTIwNWNjZDdmZGZjMTUzNTkxYTNhOWEzNzE1ODBlMiIsInN1YiI6IjYxMDdlNGMxOGQyMmZjMDA3NmJkNjUxOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2bElrr1Ds-OiC0Duu2iiP4CNipF9g1NoOe2MohCTOrQ`,
+    Authorization: `Bearer ${READ_ACCESS_TOKEN}`,
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
