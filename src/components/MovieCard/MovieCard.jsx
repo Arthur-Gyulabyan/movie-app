@@ -22,10 +22,12 @@ export default function MovieCard({ url, title, releaseDate }) {
 
 MovieCard.defaultProps = {
   url: '',
+  title: 'Unknown',
+  releaseDate: 'Unknown',
 };
 
 MovieCard.propTypes = {
   url: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  releaseDate: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  releaseDate: PropTypes.string,
 };
