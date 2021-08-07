@@ -16,9 +16,11 @@ export default function NavBar({ search, handleSearch }) {
       <Col span={12}>
         <Row justify="start" align="middle" gutter={32}>
           <Col>
-            <Text className="header" type="link">
-              Show Time
-            </Text>
+            <Link to="/">
+              <Text className="header" type="link">
+                Show Time
+              </Text>
+            </Link>
           </Col>
           <Col>
             <Button ghost type="primary" size="large">
