@@ -1,84 +1,61 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { Redirect } from 'react-router-dom';
-import { Form, Field, ErrorMessage, withFormik } from 'formik';
-import * as yup from 'yup';
-import './LogIn.less';
 import { AuthContext } from '../ProvideAuth/ProvideAuth';
+import './LogIn.less';
 
-function Login() {
+const LogIn = () => {
   const { isAuthenticated, login } = useContext(AuthContext);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const changeUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const changePassword = (e) => {
-    setPassword(e.target.value);
-  };
 
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
 
   return (
-    <div className="form-wrapper">
-      <Form className="form">
-        <h2 className="form-header">Log In</h2>
-        <div className="input-field-wrapper">
-          <Field
-            type="text"
-            name="username"
-            placeholder="username"
-            className="form-input"
-            value={username}
-            onChange={changeUsername}
-          />
-          <ErrorMessage name="email" />
-        </div>
+    <Formik
+      initialValues={{ username: '', password: '' }}
+      validationSchema={Yup.object({
+        username: Yup.string()
+          .min(2)
+          .max(12)
+          .matches('^[a-zA-Z]+$', 'only letters')
+          .required(),
+        password: Yup.string()
+          .min(8)
+          .max(16)
+          .matches(
+            '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$',
+            'at least 1 uppercase, 1 digit',
+          )
+          .required(),
+      })}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          login();
+          setSubmitting(false);
+        }, 400);
+      }}>
+      <div className="form-wrapper">
+        <Form className="form">
+          <h2 className="form-header">Login</h2>
+          <Field name="username" type="text" className="form-input" />
+          <span className="error-message">
+            <ErrorMessage name="username" />
+          </span>
 
-        <div className="input-field-wrapper">
-          <Field
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="form-input"
-            value={password}
-            onChange={changePassword}
-          />
-          <ErrorMessage name="password" />
-        </div>
-        <button type="submit" className="submit-btn" onClick={login}>
-          {' '}
-          Submit
-        </button>
-      </Form>
-    </div>
+          <Field name="password" type="password" className="form-input" />
+          <span className="error-message">
+            <ErrorMessage name="password" />
+          </span>
+
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
+        </Form>
+      </div>
+    </Formik>
   );
-}
+};
 
-const LoginValidation = yup.object().shape({
-  username: yup
-    .string()
-    .min(2)
-    .max(12)
-    .matches('^[a-zA-Z]+$', 'only letters')
-    .required(),
-  password: yup
-    .string()
-    .min(8)
-    .max(16)
-    .matches(
-      '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$',
-      'at least 1 uppercase, 1 digit',
-    )
-    .required(),
-});
-
-export default withFormik({
-  handleSubmit: (values, { setSubmitting }) => {
-    setTimeout(() => setSubmitting(false), 3 * 1000);
-  },
-  validationSchema: LoginValidation,
-})(Login);
+export default LogIn;
