@@ -75,6 +75,17 @@ export default function Main() {
                 changeHandler={changePage}
                 handleLike={addFavorite}
                 handleUnlike={removeFavorite}
+                currentPage={page}
+              />
+            </ProtectedRoute>
+            <ProtectedRoute path="/favorites">
+              <Movies
+                handleUnlike={removeFavorite}
+                handleLike={addFavorite}
+                changeHandler={changePage}
+                favorites={favorites}
+                data={{ results: favorites, total_results: favorites.length }}
+                currentPage={page}
               />
             </ProtectedRoute>
             <Route path="/login">
