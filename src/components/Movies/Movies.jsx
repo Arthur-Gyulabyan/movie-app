@@ -3,7 +3,14 @@ import { Pagination } from 'antd';
 import MovieCard from '../MovieCard/MovieCard';
 import './Movies.less';
 
-function Movies({ data, favorites, changeHandler, handleLike, handleUnlike }) {
+function Movies({
+  data,
+  favorites,
+  changeHandler,
+  handleLike,
+  handleUnlike,
+  currentPage,
+}) {
   const { results, total_results: total } = data;
 
   return (
@@ -25,6 +32,7 @@ function Movies({ data, favorites, changeHandler, handleLike, handleUnlike }) {
       <Pagination
         hideOnSinglePage
         defaultCurrent={1}
+        current={currentPage}
         total={total}
         showSizeChanger={false}
         pageSize={results.length}
@@ -46,6 +54,7 @@ Movies.propTypes = {
   changeHandler: PropTypes.func.isRequired,
   handleLike: PropTypes.func.isRequired,
   handleUnlike: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
 };
 
 export default Movies;
