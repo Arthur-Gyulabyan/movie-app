@@ -3,7 +3,7 @@ import { Pagination } from 'antd';
 import MovieCard from '../MovieCard/MovieCard';
 import './Movies.less';
 
-function Movies({ data, changeHandler }) {
+function Movies({ data, favorites, changeHandler, handleLike, handleUnlike }) {
   const { results, total_results: total } = data;
 
   return (
@@ -14,6 +14,10 @@ function Movies({ data, changeHandler }) {
             url={movie.poster_path}
             title={movie.title}
             releaseDate={movie.release_date}
+            handleLike={handleLike}
+            handleUnlike={handleUnlike}
+            favorites={favorites}
+            id={movie.id}
             key={movie.id}
           />
         );
@@ -37,7 +41,11 @@ Movies.propTypes = {
     results: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])),
     total_results: PropTypes.number,
   }).isRequired,
+  favorites: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object]))
+    .isRequired,
   changeHandler: PropTypes.func.isRequired,
+  handleLike: PropTypes.func.isRequired,
+  handleUnlike: PropTypes.func.isRequired,
 };
 
 export default Movies;
