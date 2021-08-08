@@ -12,6 +12,7 @@ export default function Main() {
   const [data, setData] = useState({});
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
+  const [favorites, setFavorites] = useState([]);
 
   const requestPopular = useCallback(() => {
     API.get(`${POPULAR_URL}&page=${page}`).then((response) => {
@@ -25,10 +26,6 @@ export default function Main() {
     });
   }, [search]);
 
-  const changePage = (pageNum) => {
-    setPage(pageNum);
-  };
-
   useEffect(() => {
     requestPopular();
   }, [page, requestPopular]);
@@ -41,6 +38,26 @@ export default function Main() {
     return () => clearTimeout(delayId);
   }, [requestBySearch, requestPopular, search]);
 
+  const addFavorite = (id) => {
+    const newFavorite = data.results.find((item) => item.id === id);
+    setFavorites((prevFavorites) => {
+      return [...prevFavorites, newFavorite];
+    });
+  };
+
+  const removeFavorite = (id) => {
+    const index = favorites.findIndex((item) => item.id === id);
+    const newFavorites = favorites
+      .slice(0, index)
+      .concat(favorites.slice(index + 1));
+
+    setFavorites(newFavorites);
+  };
+
+  const changePage = (pageNum) => {
+    setPage(pageNum);
+  };
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
@@ -52,7 +69,13 @@ export default function Main() {
           <NavBar search={search} handleSearch={handleSearch} />
           <Switch>
             <ProtectedRoute exact path="/">
-              <Movies data={data} changeHandler={changePage} />
+              <Movies
+                data={data}
+                favorites={favorites}
+                changeHandler={changePage}
+                handleLike={addFavorite}
+                handleUnlike={removeFavorite}
+              />
             </ProtectedRoute>
             <Route path="/login">
               <LogIn />
