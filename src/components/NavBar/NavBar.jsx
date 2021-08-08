@@ -23,9 +23,11 @@ export default function NavBar({ search, handleSearch }) {
             </Link>
           </Col>
           <Col>
-            <Button ghost type="primary" size="large">
-              Favorites
-            </Button>
+            <Link to="/favorites">
+              <Button ghost type="primary" size="large">
+                Favorites
+              </Button>
+            </Link>
           </Col>
         </Row>
       </Col>
