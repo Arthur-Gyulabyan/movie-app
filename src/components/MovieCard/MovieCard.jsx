@@ -23,11 +23,29 @@ export default function MovieCard({
   return (
     <Card
       hoverable
-      cover={<img alt="example" src={url ? `${IMAGE_URL}${url}` : noImage} />}
-      actions={
-        isFavorite(id, favorites)
-          ? [<HeartFilled key="unlike" onClick={() => handleUnlike(id)} />]
-          : [<HeartOutlined key="like" onClick={() => handleLike(id)} />]
+      cover={
+        <>
+          <img
+            alt="example"
+            src={url ? `${IMAGE_URL}${url}` : noImage}
+            className="card-image"
+          />
+          {isFavorite(id, favorites)
+            ? [
+                <HeartFilled
+                  key="unlike"
+                  className="like-icon"
+                  onClick={() => handleUnlike(id)}
+                />,
+              ]
+            : [
+                <HeartOutlined
+                  key="like"
+                  className="like-icon"
+                  onClick={() => handleLike(id)}
+                />,
+              ]}
+        </>
       }>
       <Meta title={title} description={releaseDate} />
     </Card>
