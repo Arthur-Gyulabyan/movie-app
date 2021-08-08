@@ -42,6 +42,7 @@ const LogIn = () => {
           <Field
             name="username"
             type="text"
+            placeholder="Username"
             className="form-input"
             autoComplete="true"
           />
@@ -52,6 +53,7 @@ const LogIn = () => {
           <Field
             name="password"
             type="password"
+            placeholder="Password"
             className="form-input"
             autoComplete="true"
           />
