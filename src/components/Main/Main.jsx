@@ -6,11 +6,12 @@ import NavBar from '../NavBar/NavBar';
 import Movies from '../Movies/Movies';
 import LogIn from '../LogIn/LogIn';
 import API from '../../helpers/axios';
+import getQueryString from '../../helpers/getQueryString';
 import { POPULAR_URL, SEARCH_URL } from '../../constants/constants';
 
 export default function Main() {
-  const [data, setData] = useState({});
-  const [page, setPage] = useState(1);
+  const [data, setData] = useState({ results: [] });
+  const [page, setPage] = useState(Number(getQueryString('page')) || 1);
   const [search, setSearch] = useState('');
   const [favorites, setFavorites] = useState([]);
 
@@ -66,9 +67,13 @@ export default function Main() {
     <>
       <ProvideAuth>
         <Router>
-          <NavBar search={search} handleSearch={handleSearch} />
+          <NavBar
+            search={search}
+            handleSearch={handleSearch}
+            changePage={changePage}
+          />
           <Switch>
-            <ProtectedRoute exact path="/">
+            <ProtectedRoute exact path="/main">
               <Movies
                 data={data}
                 favorites={favorites}
