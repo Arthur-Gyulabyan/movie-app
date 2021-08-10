@@ -9,7 +9,7 @@ const LogIn = () => {
   const { isAuthenticated, login } = useContext(AuthContext);
 
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    return <Redirect to="/main" />;
   }
 
   return (
@@ -32,7 +32,7 @@ const LogIn = () => {
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          login();
+          login(values);
           setSubmitting(false);
         }, 400);
       }}>
