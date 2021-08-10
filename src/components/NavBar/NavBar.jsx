@@ -8,7 +8,7 @@ import { AuthContext } from '../ProvideAuth/ProvideAuth';
 const { Text } = Typography;
 const { Search } = Input;
 
-export default function NavBar({ search, handleSearch }) {
+export default function NavBar({ search, handleSearch, changePage }) {
   const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
@@ -16,8 +16,13 @@ export default function NavBar({ search, handleSearch }) {
       <Col span={12}>
         <Row justify="start" align="middle" gutter={32}>
           <Col>
-            <Link to="/">
-              <Text className="header" type="link">
+            <Link to="/main">
+              <Text
+                className="header"
+                type="link"
+                onClick={() => {
+                  changePage(1);
+                }}>
                 Show Time
               </Text>
             </Link>
@@ -62,4 +67,5 @@ export default function NavBar({ search, handleSearch }) {
 NavBar.propTypes = {
   search: PropTypes.string.isRequired,
   handleSearch: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired,
 };
